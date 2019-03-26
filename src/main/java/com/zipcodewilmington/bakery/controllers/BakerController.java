@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BakerController {
-    @Autowired
     private BakerService service;
 
     @Autowired
@@ -18,7 +17,7 @@ public class BakerController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/bakers", method = RequestMethod.GET)
+    @RequestMapping(value = "/bakers/", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Baker>> index() {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
@@ -28,13 +27,13 @@ public class BakerController {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    @PostMapping("/bakers")
-    public ResponseEntity<Baker> create(@PathVariable Baker baker) {
+    @PostMapping("/bakers/")
+    public ResponseEntity<Baker> create(@RequestBody Baker baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
 
     @PutMapping("/bakers/{id}")
-    public ResponseEntity<Baker> update(@PathVariable Long id, @PathVariable Baker baker) {
+    public ResponseEntity<Baker> update(@PathVariable Long id, @RequestBody Baker baker) {
         return new ResponseEntity<>(service.update(id, baker), HttpStatus.OK);
     }
 

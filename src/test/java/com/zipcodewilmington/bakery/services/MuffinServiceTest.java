@@ -5,11 +5,17 @@ import com.zipcodewilmington.bakery.models.Muffin;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.BDDMockito.given;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(MuffinService.class)
 
 public class MuffinServiceTest {
     @MockBean
@@ -28,7 +34,9 @@ public class MuffinServiceTest {
         // Given
         HttpStatus expected = HttpStatus.CREATED;
         Muffin expectedMuffin = new Muffin();
-        given(service.create(expectedMuffin)).willReturn(expectedMuffin);
+        given(service
+                .create(expectedMuffin))
+                .willReturn(expectedMuffin);
 
         // When
         ResponseEntity<Muffin> response = controller.create(expectedMuffin);
